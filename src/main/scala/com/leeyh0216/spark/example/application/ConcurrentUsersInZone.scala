@@ -19,7 +19,7 @@ class ConcurrentUsersInZone(spark: SparkSession) {
       .withColumn("inOutDelta", when(col("eventType") === lit(1), lit(1)).otherwise(lit(-1)))
   }
 
-  def process(streamDF: DataFrame): StreamingQuery = {
+  def process(streamDF: DataFrame, sink: String = "memory", outputMode: OutputMode = OutputMode.Append()): StreamingQuery = {
     streamDF
       //마지막 Microbatch의 Max(Event Time) - 10초 까지의 데이터를 Watermark
       .withWatermark("eventTime", "10 seconds")
@@ -27,9 +27,9 @@ class ConcurrentUsersInZone(spark: SparkSession) {
       .groupBy(window(col("eventTime"), "1 minutes").as("window"), col("zone"))
       //1분 간의 In/Out Delta 합
       .agg(sum(col("inOutDelta")).as("inOutDelta"))
-      //메모리에 결과를 Flush
-      .writeStream.format("console")
-      .outputMode(OutputMode.Update())
+      //Sink Format과 Output Mode 지정
+      .writeStream.format(sink)
+      .outputMode(outputMode)
       .queryName("ConcurrentUsersInZone")
       .option("truncate", "false")
       //Watermark 작동 이후에만 결과를 갱신한다.
