@@ -1,6 +1,6 @@
-package com.leeyh0216.spark.example.application
+package com.leeyh0216.spark.example.streaming.application
 
-import com.leeyh0216.spark.example.log.ZoneInOutLog
+import com.leeyh0216.spark.example.streaming.log.ZoneInOutLog
 import org.apache.spark.sql
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.execution.streaming.MemoryStream

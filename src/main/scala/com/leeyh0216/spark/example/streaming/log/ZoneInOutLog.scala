@@ -1,4 +1,4 @@
-package com.leeyh0216.spark.example.log
+package com.leeyh0216.spark.example.streaming.log
 
 /**
   * Zone 진입/퇴장 로그 정의

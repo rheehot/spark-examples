@@ -1,8 +1,8 @@
-package com.leeyh0216.spark.example.application
+package com.leeyh0216.spark.example.streaming.application
 
 import java.util.concurrent.TimeUnit
 
-import com.leeyh0216.spark.example.log.ZoneInOutLog
+import com.leeyh0216.spark.example.streaming.log.ZoneInOutLog
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.sql.execution.streaming.MemoryStream
 import org.apache.spark.sql.streaming.{OutputMode, StreamingQuery, Trigger}
